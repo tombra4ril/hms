@@ -1,0 +1,40 @@
+#calendar-modal{
+  width: 100%;
+}
+#calendar-modal table, #calendar-modal tr, #calendar-modal td{
+  border: 1px solid var(--gray);
+  border-collapse: collapse;
+}
+#calendar-modal table, #calendar-modal tr{
+  width: 100%;
+}
+#calendar-years {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
+}
+.calendar-years{
+  cursor: pointer;
+}
+.calendar-years span{
+  padding: 5px;
+}
+#calendar-week-days{
+  width: 100%;
+  text-align: center;
+}
+#calendar-week-days td{
+  padding: 5px;
+}
+.calendar-days td{
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.calendar-days td.active{
+  background-color: var(--blue);
+  color: var(--white);
+}

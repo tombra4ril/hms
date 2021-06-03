@@ -1,0 +1,29 @@
+import React, {useEffect} from 'react'
+import Sidebar from "../components/SideBar"
+import Title from '../components/Title'
+import "./styles/Dashboard.scss"
+import Icons from '../components/Icons'
+import Calendar from "../components/Calendar"
+import NoticeBoard from "../components/NoticeBoard"
+
+const Dashboard = () => {
+  useEffect(() => {
+    document.title = "Hospital Management System - Dashboard"
+  }, [])
+
+  return (
+    <div className="section">
+      <Sidebar />
+      <div className="content-section">
+        <Title name="dashboard" />
+        <Icons />
+        <div className="content-body content-body-pad">
+          <Calendar title="Calender Schedule" />
+          <NoticeBoard title="Noticeboard" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Dashboard

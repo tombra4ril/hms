@@ -1,0 +1,14 @@
+.content-body{
+  display: flex;
+  margin-bottom: 50px;
+}
+.content-body-pad{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.content-body > div{
+  width: 100%;
+}
+.content-body > div + div{
+  margin-left: 20px;
+}

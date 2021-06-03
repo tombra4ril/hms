@@ -1,0 +1,35 @@
+.section-head{
+  display: flex;
+  background-color: var(--blue);
+  color: var(--white);
+  padding-left: 10px;
+  width: 100%;
+}
+.section-head > div{
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+  width: 100%;
+}
+.section-head > div + div{
+  margin-left: 10px;
+}
+.section-head > div.active{
+  background-color: var(--white);
+  color: var(--black);
+}
+.section-head > div span:first-child{
+  margin-right: 5px;
+}
+.section-title-div{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.section-title-div + .section-title-div{
+  margin-left: 10px;
+}
+.calendar-title-div{
+  justify-content: flex-end;
+  margin-right: 10px;
+}
