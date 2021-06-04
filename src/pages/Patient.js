@@ -5,15 +5,17 @@ import Title from '../components/Title'
 import Pagination from "../components/Pagination"
 import "./styles/Manage.scss"
 
-const Doctor = () => {
+const Patient = () => {
   const [content, setContent] = useState(0)
-  const [doctors, setDoctors] = useState([])
+  const [patients, setPatients] = useState([])
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState("")
   const [phone, setPhone] = useState("")
-  const [dept, setDept] = useState("")
+  const [sex, setSex] = useState("")
+  const [dob, setDob] = useState("")
+  const [bloodGroup, setBloodGroup] = useState("")
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(5)
   const [start, setStart] = useState(0)
@@ -28,53 +30,37 @@ const Doctor = () => {
   // This is called when this page is called
   useEffect(() => {
     // set page title
-    document.title = "Hospital Management System - Doctors"
+    document.title = "Hospital Management System - Patients"
 
     // items for the table
-    const docs = [
+    const patients = [
       {
         "name": "Tombra",
-        "dept": "Environmental Engineering"
-      },
-      {
-        "name": "Ere",
-        "dept": "Sciences"
+        "sex": "M",
+        "blood": "O+",
+        "dob": "1994-10-01"
       },
       {
         "name": "Preye",
-        "dept": "Electrical Electronic Engineering"
+        "sex": "F",
+        "blood": "O-",
+        "dob": "2000-10-01"
       },
       {
         "name": "Bibi",
-        "dept": "Mathematics"
+        "sex": "M",
+        "blood": "A+",
+        "dob": "1984-10-01"
       },
       {
-        "name": "Jolly",
-        "dept": "Physics"
+        "name": "Ere",
+        "sex": "F",
+        "blood": "O+",
+        "dob": "1893-10-01"
       },
-      {
-        "name": "Samuel",
-        "dept": "Accountant"
-      },
-      {
-        "name": "Kelvin",
-        "dept": "Nurse practice"
-      },
-      {
-        "name": "Douye",
-        "dept": "General Practitioner"
-      },
-      {
-        "name": "Joshua",
-        "dept": "Lab"
-      },
-      {
-        "name": "Anthony",
-        "dept": "Pharmacist"
-      }
     ]
-    let len = docs.length
-    setDoctors(docs)
+    let len = patients.length
+    setPatients(patients)
     setTotal(len)
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
@@ -101,8 +87,8 @@ const Doctor = () => {
     setName(name)
   }
 
-  // function to add a new email
-  const addEmail = (event) => {
+   // function to add a new email
+   const addEmail = (event) => {
     let email = event.target.value
     setEmail(email)
   }
@@ -122,7 +108,7 @@ const Doctor = () => {
   // function to add a new address
   const addAddress = (event) => {
     let address = event.target.value
-    setAddress(addAddress)
+    setAddress(address)
   }
 
   // function to add a new phone number
@@ -130,14 +116,26 @@ const Doctor = () => {
     let phone = event.target.value
     setPhone(phone)
   }
-  
-  // function to add a new department name
-  const addDept = (event)  => {
-    let desc = event.target.value
-    setDept(desc)
+
+  // function to add a new sex
+  const addSex = (event) => {
+    let sex = event.target.value
+    setSex(sex)
   }
-  
-  // function to add a new doctor
+
+  // function to confirm a new blood group
+  const addBloodGroup = (event) => {
+    let blood = event.target.value
+    setBloodGroup(blood)
+  }
+
+  // function to add a new dob
+  const addDob = (event) => {
+    let dob = event.target.value
+    setDob(dob)
+  }
+
+  // function to add a new patient
   const submitNew = (event) => {
     event.preventDefault()
     console.log("Doctor name is: ", name)
@@ -145,7 +143,9 @@ const Doctor = () => {
     console.log("Doctor password is: ", password)
     console.log("Doctor address is: ", address)
     console.log("Doctor phone is: ", phone)
-    console.log("Doctor dept is: ", dept)
+    console.log("Patient sex is: ", sex)
+    console.log("Patient dob is: ", dob)
+    console.log("Patient blood group is: ", bloodGroup)
   }
 
   // function to handle how many number of items to display
@@ -172,10 +172,10 @@ const Doctor = () => {
     <div className="section">
       <Sidebar />
       <div className="content-section">
-        <Title name="doctor" />
+        <Title name="patient" />
         <div className="bg-gray content-spacing">
           <div className="content-header">
-            <ListAdd name="Doctor" onContentShow={showContent} />
+            <ListAdd name="Patient" onContentShow={showContent} />
           </div>
           <div className="content-body">
             {
@@ -200,17 +200,21 @@ const Doctor = () => {
                   <thead>
                     <tr>
                       <th><span className="material-icons">view_list</span></th>
-                      <th>Doctor Name</th>
-                      <th>Department</th>
-                      <th>Option</th>
+                      <th>Patient Name</th>
+                      <th>Sex</th>
+                      <th>Blood Group</th>
+                      <th>Birth Date</th>
+                      <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {doctors.slice(start, start + numberOfItems).map((doctor, index) => (
+                    {patients.slice(start, start + numberOfItems).map((patient, index) => (
                       <tr key={index}>
                         <td>{start + 1 + index}</td>
-                        <td>{doctor["name"]}</td>
-                        <td>{doctor["dept"]}</td>
+                        <td>{patient["name"]}</td>
+                        <td>{patient["sex"]}</td>
+                        <td>{patient["blood"]}</td>
+                        <td>{patient["dob"]}</td>
                         <td>
                           <div className="flex-element flex-wrap flex-d-center flex-just-sp-around flex-align-cent color-w">
                             <span onClick={() => settings(1, index)} className="material-icons bg-blue">build</span>
@@ -241,13 +245,17 @@ const Doctor = () => {
                     <input className="input" onChange={addAddress} type="text" />
                     <label className="label">Phone</label>
                     <input className="input" onChange={addPhone} type="tel" />
-                    <label className="label">Department</label>
-                    <select className="input" onChange={addDept}>
-                      <option disabled>Select Department</option>
+                    <label className="label">Sex</label>
+                    <select className="input" onChange={addSex}>
+                      <option disabled>Select Sex</option>
                     </select>
+                    <label className="label">Birth Date</label>
+                    <input className="input" onChange={addDob} type="date" />
+                    <label className="label">Blood Group</label>
+                    <input className="input" onChange={addBloodGroup} type="text" />
                   </div>
                   <div className="bg-gray add-div">
-                    <p><button type="submit" className="add-submit-button">Add Doctor</button></p>
+                    <p><button type="submit" className="add-submit-button">Add Patient</button></p>
                   </div>
                 </form>
               </div>
@@ -259,4 +267,4 @@ const Doctor = () => {
   )
 }
 
-export default Doctor
+export default Patient

@@ -5,11 +5,16 @@ import Title from '../components/Title'
 import Pagination from "../components/Pagination"
 import "./styles/Manage.scss"
 
-const Department = () => {
+const Accountant = () => {
   const [content, setContent] = useState(0)
-  const [departments, setDepartments] = useState([])
+  const [accountants, setAccountants] = useState([])
   const [name, setName] = useState("")
-  const [desc, setDesc] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState("")
+  const [sex, setSex] = useState("")
+  const [dob, setDob] = useState("")
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(5)
   const [start, setStart] = useState(0)
@@ -20,62 +25,40 @@ const Department = () => {
   // call this when you want to change the section content
   useEffect(() => {
   }, [content])
-
-   // This is called when this page is called
-   useEffect(() => {
+  
+  // This is called when this page is called
+  useEffect(() => {
     // set page title
-    document.title = "Hospital Management System - Departments"
+    document.title = "Hospital Management System - Accountants"
 
     // items for the table
-    const depts = [
+    const accountants = [
       {
         "name": "Tombra",
-        "desc": "Environmental Engineering"
-      },
-      {
-        "name": "Ere",
-        "desc": "Sciences"
+        "email": "tombra4ril@gmail.com",
+        "address": "Ken-kayama street",
+        "phone": "+2348105912717"
       },
       {
         "name": "Preye",
-        "desc": "Electrical Electronic Engineering"
+        "email": "tombra4ril@gmail.com",
+        "address": "Ken-kayama street",
+        "phone": "+2348105912717"
       },
       {
-        "name": "Bibi",
-        "desc": "Mathematics"
+        "name": "Ere",
+        "email": "tombra4ril@gmail.com",
+        "address": "Ken-kayama street",
+        "phone": "+2348105912717"
       },
-      {
-        "name": "Jolly",
-        "desc": "Physics"
-      },
-      {
-        "name": "Samuel",
-        "desc": "Accountant"
-      },
-      {
-        "name": "Kelvin",
-        "desc": "Nurse practice"
-      },
-      {
-        "name": "Douye",
-        "desc": "General Practitioner"
-      },
-      {
-        "name": "Joshua",
-        "desc": "Lab"
-      },
-      {
-        "name": "Anthony",
-        "desc": "Pharmacist"
-      }
     ]
-    setDepartments(depts)
-    let len = depts.length
+    let len = accountants.length
+    setAccountants(accountants)
     setTotal(len)
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
   }, [])
-
+  
   // function for click on a title heading
   const showContent = head_index => {
     setContent(head_index)
@@ -83,7 +66,7 @@ const Department = () => {
 
   // function for deleting a table row
   const del = (data_id, id) => {
-    console.log("Delete clicked for id: ", data_id, " == with an id of: ", id)
+    console.log("del clicked for id: ", data_id, " == with an id of: ", id)
   }
   
   // function for setttings for a table row
@@ -92,21 +75,63 @@ const Department = () => {
   }
   
   // function to add a new name
-  const addDeptName = (event) => {
+  const addName = (event) => {
     let name = event.target.value
     setName(name)
   }
-  
-  // function to add a new name
-  const addDeptDesc = (event)  => {
-    let desc = event.target.value
-    setDesc(desc)
+
+   // function to add a new email
+   const addEmail = (event) => {
+    let email = event.target.value
+    setEmail(email)
   }
-  
-  // function to add a new department
+
+  // function to add a new password
+  const addPassword = (event) => {
+    let password = event.target.value
+    setPassword(password)
+  }
+
+  // function to confirm a new password
+  const addConfirmPassword = (event) => {
+    let _password = event.target.value
+    console.log("Password and confirm password: ", password === _password)
+  }
+
+  // function to add a new address
+  const addAddress = (event) => {
+    let address = event.target.value
+    setAddress(address)
+  }
+
+  // function to add a new phone number
+  const addPhone = (event) => {
+    let phone = event.target.value
+    setPhone(phone)
+  }
+
+  // function to add a new sex
+  const addSex = (event) => {
+    let sex = event.target.value
+    setSex(sex)
+  }
+
+  // function to add a new dob
+  const addDob = (event) => {
+    let dob = event.target.value
+    setDob(dob)
+  }
+
+  // function to add a new nurse
   const submitNew = (event) => {
     event.preventDefault()
-    console.log("Department name is: ", name, " desc is: ", desc)
+    console.log("Nurse name is: ", name)
+    console.log("Nurse email is: ", email)
+    console.log("Nurse password is: ", password)
+    console.log("Nurse address is: ", address)
+    console.log("Nurse phone is: ", phone)
+    console.log("Nurse sex is: ", sex)
+    console.log("Nurse dob is: ", dob)
   }
 
   // function to handle how many number of items to display
@@ -123,6 +148,7 @@ const Department = () => {
     let _end = _start + number - 1
     _end = (_end > total - 1)? total - 1: _end
 
+    // set states
     setEnd(_end)
     setPage(Math.ceil((_end + 1) / number))
     setLast(Math.ceil(total / number))
@@ -132,10 +158,10 @@ const Department = () => {
     <div className="section">
       <Sidebar />
       <div className="content-section">
-        <Title name="department" />
+        <Title name="accountant" />
         <div className="bg-gray content-spacing">
           <div className="content-header">
-            <ListAdd name="Department" onContentShow={showContent} />
+            <ListAdd name="Accountant" onContentShow={showContent} />
           </div>
           <div className="content-body">
             {
@@ -160,19 +186,23 @@ const Department = () => {
                   <thead>
                     <tr>
                       <th><span className="material-icons">view_list</span></th>
-                      <th>Department</th>
-                      <th>Description</th>
-                      <th>Option</th>
+                      <th>Pharmacist Name</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {departments.slice(start, start + numberOfItems).map((department, index) => (
+                    {accountants.slice(start, start + numberOfItems).map((nurse, index) => (
                       <tr key={index}>
-                        <td>{index + start + 1}</td>
-                        <td>{department["name"]}</td>
-                        <td>{department["desc"]}</td>
+                        <td>{start + 1 + index}</td>
+                        <td>{nurse["name"]}</td>
+                        <td>{nurse["email"]}</td>
+                        <td>{nurse["address"]}</td>
+                        <td>{nurse["phone"]}</td>
                         <td>
-                          <div className="flex-wrap flex-just-sp-around flex-element flex-d-center flex-align-cent color-w">
+                          <div className="flex-element flex-wrap flex-d-center flex-just-sp-around flex-align-cent color-w">
                             <span onClick={() => settings(1, index)} className="material-icons bg-blue">build</span>
                             <span onClick={() => del(2, index)}className="material-icons bg-red">delete</span>
                           </div>
@@ -189,13 +219,27 @@ const Department = () => {
               <div className="content-body add-sect">
                 <form onSubmit={event => submitNew(event)}>
                   <div className="bg-gray add-form">
-                    <label className="label">Department Name</label>
-                    <input className="input" onChange={addDeptName} type="text" />
-                    <label className="label">Department Description</label>
-                    <input className="input" onChange={addDeptDesc} type="text" />
+                    <label className="label">Name</label>
+                    <input className="input" onChange={addName} type="text" />
+                    <label className="label">Email</label>
+                    <input className="input" onChange={addEmail} type="email" />
+                    <label className="label">Password</label>
+                    <input className="input" onChange={addPassword} type="password" />
+                    <label className="label">Confirm Password</label>
+                    <input className="input" onChange={addConfirmPassword} type="password" />
+                    <label className="label">Address</label>
+                    <input className="input" onChange={addAddress} type="text" />
+                    <label className="label">Phone</label>
+                    <input className="input" onChange={addPhone} type="tel" />
+                    <label className="label">Sex</label>
+                    <select className="input" onChange={addSex}>
+                      <option disabled>Select Sex</option>
+                    </select>
+                    <label className="label">Birth Date</label>
+                    <input className="input" onChange={addDob} type="date" />
                   </div>
                   <div className="bg-gray add-div">
-                    <p><button type="submit" className="add-submit-button">Add Department</button></p>
+                    <p><button type="submit" className="add-submit-button">Add Nurse</button></p>
                   </div>
                 </form>
               </div>
@@ -207,4 +251,4 @@ const Department = () => {
   )
 }
 
-export default Department
+export default Accountant

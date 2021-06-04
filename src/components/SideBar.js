@@ -3,7 +3,7 @@ import SideBarLink from './SideBarLink'
 import "./styles/SideBar.scss"
 
 const Sidebar = () => {
-  const icon_list = [
+const icon_list = [
     "home",
     "dashboard",
     "person",
@@ -12,7 +12,7 @@ const Sidebar = () => {
     "sanitizer",
     "science",
     "attach_money",
-    "home",
+    "manage_accounts",
     "settings",
     "account_box" 
   ]

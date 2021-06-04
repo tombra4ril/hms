@@ -90,14 +90,22 @@
 }
 .page-count{
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 .page-button{
   padding: 5px 10px;
-  background-color: var(--light-blue);
-  color: var(--white);
-  cursor: pointer;
   border: none;
   outline: none;
+  cursor: pointer;
+}
+.page-button.active{
+  background-color: var(--light-blue);
+  color: var(--white);
+}
+.page-button.disabled{
+  color: var(--gray);
+  border: 1px solid var(--gray);
+  cursor: default;
 }
 .page-button + .page-button{
   margin-left: 5px;
