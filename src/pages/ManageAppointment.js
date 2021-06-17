@@ -4,23 +4,26 @@ import ListAdd from '../components/ListAdd'
 import Title from '../components/Title'
 import Pagination from "../components/Pagination"
 import "./styles/Manage.scss"
+import Modal from "../modules/Modal"
 
-const Nurse = () => {
+const ManageAppointment = () => {
   const [content, setContent] = useState(0)
-  const [nurses, setNurses] = useState([])
+  const [appointments, setAppointments] = useState([])
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [address, setAddress] = useState("")
   const [phone, setPhone] = useState("")
   const [sex, setSex] = useState("")
-  const [dob, setDob] = useState("")
+  const [date, setDate] = useState(new Date())
+  const [dateString, setDateString] = useState("")
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(5)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(start + numberOfItems - 1)
   const [page, setPage] = useState(1)
   const [last, setLast] = useState(Math.ceil(total / numberOfItems))
+  const [showModal, setShowModal] = useState("hide")
+  const [modalStatus, setModalStatus] = useState("success")
+  const [modalMessage, setModalMessage] = useState("")
 
   // call this when you want to change the section content
   useEffect(() => {
@@ -29,35 +32,43 @@ const Nurse = () => {
   // This is called when this page is called
   useEffect(() => {
     // set page title
-    document.title = "Hospital Management System - Patients"
+    document.title = "Hospital Management System - appointments"
+
+    // set the date
+    let _date = `${date.getFullYear()}-${((date.getMonth() + 1).toString()).padStart(2, "0")}-${(date.getDate().toString()).padStart(2, "0")}`
+    setDateString(_date)
+    setDate(new Date(_date))
 
     // items for the table
-    const nurses = [
+    const appointments = [
       {
         "name": "Tombra",
+        "date": "2020-10-02",
         "email": "tombra4ril@gmail.com",
-        "address": "Ken-kayama street",
-        "phone": "+2348105912717"
+        "phone": "+2348105912717",
+        "sex": "M"
       },
       {
         "name": "Preye",
+        "date": "2020-10-02",
         "email": "tombra4ril@gmail.com",
-        "address": "Ken-kayama street",
-        "phone": "+2348105912717"
+        "phone": "+2348105912717",
+        "sex": "M"
       },
       {
         "name": "Ere",
+        "date": "2020-10-02",
         "email": "tombra4ril@gmail.com",
-        "address": "Ken-kayama street",
-        "phone": "+2348105912717"
+        "phone": "+2348105912717",
+        "sex": "F"
       },
     ]
-    let len = nurses.length
-    setNurses(nurses)
+    let len = appointments.length
+    setAppointments(appointments)
     setTotal(len)
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
-  })
+  }, [total])
   
   // function for click on a title heading
   const showContent = head_index => {
@@ -74,8 +85,8 @@ const Nurse = () => {
     console.log("Settings clicked for id: ", data_id, " == with an id of: ", id)
   }
   
-  // function to add a new name
-  const addName = (event) => {
+   // function to add a new email
+   const addName = (event) => {
     let name = event.target.value
     setName(name)
   }
@@ -84,24 +95,6 @@ const Nurse = () => {
    const addEmail = (event) => {
     let email = event.target.value
     setEmail(email)
-  }
-
-  // function to add a new password
-  const addPassword = (event) => {
-    let password = event.target.value
-    setPassword(password)
-  }
-
-  // function to confirm a new password
-  const addConfirmPassword = (event) => {
-    let _password = event.target.value
-    console.log("Password and confirm password: ", password === _password)
-  }
-
-  // function to add a new address
-  const addAddress = (event) => {
-    let address = event.target.value
-    setAddress(address)
   }
 
   // function to add a new phone number
@@ -116,22 +109,35 @@ const Nurse = () => {
     setSex(sex)
   }
 
-  // function to add a new dob
-  const addDob = (event) => {
-    let dob = event.target.value
-    setDob(dob)
+  // function to add a new date
+  const addDate = (event) => {
+    let _date = event.target.value
+    setDateString(_date)
+    setDate(new Date(_date))
   }
+  // timeout for modal variable
+  let hideModal = null
 
   // function to add a new nurse
   const submitNew = (event) => {
     event.preventDefault()
-    console.log("Nurse name is: ", name)
-    console.log("Nurse email is: ", email)
-    console.log("Nurse password is: ", password)
-    console.log("Nurse address is: ", address)
-    console.log("Nurse phone is: ", phone)
-    console.log("Nurse sex is: ", sex)
-    console.log("Nurse dob is: ", dob)
+    console.log("Patient name is: ", name)
+    console.log("Patient email is: ", email)
+    console.log("Patient phone is: ", phone)
+    console.log("Patient sex is: ", sex)
+    console.log("Patient date is: ", date)
+
+    // display modal
+    setModalMessage("Successfully added a new appointment!")
+    setShowModal("show")
+    setModalStatus("success")
+    hideModal = setTimeout(() => setShowModal("hide"), 5000)
+  }
+
+  // closes the modal
+  const closeModal = (event) => {
+    setShowModal("hide")
+    clearTimeout(hideModal)
   }
 
   // function to handle how many number of items to display
@@ -156,12 +162,13 @@ const Nurse = () => {
 
   return (
     <div className="section">
+      <Modal show={showModal} message={modalMessage} status={modalStatus} closeModal={closeModal} />
       <Sidebar />
       <div className="content-section">
-        <Title name="nurse" />
+        <Title name="appointment" />
         <div className="bg-gray content-spacing">
           <div className="content-header">
-            <ListAdd name="Nurse" onContentShow={showContent} />
+            <ListAdd name="Appointment" onContentShow={showContent} />
           </div>
           <div className="content-body">
             {
@@ -186,21 +193,23 @@ const Nurse = () => {
                   <thead>
                     <tr>
                       <th><span className="material-icons">view_list</span></th>
-                      <th>Nurse Name</th>
+                      <th>Patient</th>
+                      <th>Date</th>
                       <th>Email</th>
-                      <th>Address</th>
                       <th>Phone</th>
+                      <th>Sex</th>
                       <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {nurses.slice(start, start + numberOfItems).map((nurse, index) => (
+                    {appointments.slice(start, start + numberOfItems).map((appointment, index) => (
                       <tr key={index}>
                         <td className="align-center">{start + 1 + index}</td>
-                        <td>{nurse["name"]}</td>
-                        <td>{nurse["email"]}</td>
-                        <td>{nurse["address"]}</td>
-                        <td>{nurse["phone"]}</td>
+                        <td>{appointment["name"]}</td>
+                        <td>{appointment["date"]}</td>
+                        <td>{appointment["email"]}</td>
+                        <td>{appointment["phone"]}</td>
+                        <td>{appointment["sex"]}</td>
                         <td>
                           <div className="flex-element flex-wrap flex-d-center flex-just-sp-around flex-align-cent color-w">
                             <span onClick={() => settings(1, index)} className="material-icons bg-blue">build</span>
@@ -223,23 +232,17 @@ const Nurse = () => {
                     <input className="input" onChange={addName} type="text" />
                     <label className="label">Email</label>
                     <input className="input" onChange={addEmail} type="email" />
-                    <label className="label">Password</label>
-                    <input className="input" onChange={addPassword} type="password" />
-                    <label className="label">Confirm Password</label>
-                    <input className="input" onChange={addConfirmPassword} type="password" />
-                    <label className="label">Address</label>
-                    <input className="input" onChange={addAddress} type="text" />
                     <label className="label">Phone</label>
                     <input className="input" onChange={addPhone} type="tel" />
                     <label className="label">Sex</label>
                     <select className="input" onChange={addSex}>
                       <option disabled>Select Sex</option>
                     </select>
-                    <label className="label">Birth Date</label>
-                    <input className="input" onChange={addDob} type="date" />
+                    <label className="label">Date</label>
+                    <input className="input" onChange={addDate} type="date" value={dateString} />
                   </div>
                   <div className="bg-gray add-div">
-                    <p><button type="submit" className="add-submit-button">Add Nurse</button></p>
+                    <p><button type="submit" className="add-submit-button">Add Appointment</button></p>
                   </div>
                 </form>
               </div>
@@ -251,4 +254,4 @@ const Nurse = () => {
   )
 }
 
-export default Nurse
+export default ManageAppointment

@@ -3,7 +3,7 @@ import SideBarLink from './SideBarLink'
 import "./styles/SideBar.scss"
 
 const Sidebar = () => {
-const icon_list = [
+  const icon_list = [
     "home",
     "dashboard",
     "person",
@@ -14,6 +14,12 @@ const icon_list = [
     "attach_money",
     "manage_accounts",
     "settings",
+    "account_box",
+    "pending_actions",
+    "science",
+    "king_bed",
+    "bloodtype",
+    "assignment",
     "account_box" 
   ]
   const name_list = [
@@ -27,6 +33,12 @@ const icon_list = [
     "Accountant",
     "Monitor Hospital",
     "Settings",
+    "Profile",
+    "Manage Appointment",
+    "Manage Prescription",
+    "Bed Allotment",
+    "View Blood Bank",
+    "Manage Report",
     "Profile"
   ]
   const link_list = [
@@ -40,36 +52,42 @@ const icon_list = [
     "/accountants",
     "/hospitals",
     "/settings",
-    "/profiles"
+    "/profiles",
+    "/manage_appointment",
+    "/manage_prescription",
+    "/bed_allotment",
+    "/blood_bank",
+    "/manage_report",
+    "/profiles",
   ]
   // const [user_category] = useContext(CategoryContext)
   const user_category = localStorage.getItem("user_category").toLowerCase()
   let test_user = ""
   if(user_category === "admin"){// admin sidebar
-    test_user = [true, true, true, true, true, true, true, true, true, true, true]
+    test_user = [true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false]
   }
   else if(user_category === "doctor"){// doctor sidebar
-    test_user = [true, false, false, false, true, false, false, false, false, true, true]
+    test_user = [true, false, false, true, false, false, false, false, false, false, false, true, true, true, true, true, true]
   }
   else if(user_category === "patient"){// patient sidebar
-    test_user = [true, true, true, true, true, true, false, true, true, true, true]
   }
   else if(user_category === "nurse"){// nurse sidebar
-    test_user = [true, true, true, true, true, true, true, false, true, true, true]
   }
   else if(user_category === "pharmacist"){// pharm sidebar
-    test_user = [true, true, true, true, true, true, true, true, false, true, true]
   }
   else if(user_category === "laboratorist"){// lab sidebar
-    test_user = [true, true, true, true, true, true, true, true, true, false, true]
   }
   else if(user_category === "accountant"){// accountant sidebar
-    test_user = [true, true, true, true, true, true, true, true, true, false, true]
   }
   else{
-    test_user = [false, false, false, false, false, false, false, false, false, false, false]
+    test_user = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
   }
-  const zipped = test_user.filter((test_value) => test_value).map((item, index) => [icon_list[index], name_list[index], link_list[index]])
+  const zipped = []
+  test_user.map(test => test).forEach((test, index) => {
+    if(test){
+      zipped.push([icon_list[index], name_list[index], link_list[index]])
+    }
+  })
 
   return (
     <div className="sidebar">

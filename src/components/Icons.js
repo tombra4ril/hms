@@ -22,6 +22,10 @@ const Icons = () => {
     "person",
     "person",
     "person",
+    "person",
+    "person",
+    "person",
+    "person"
   ]
   const name_list = [
     "Doctor",
@@ -41,7 +45,11 @@ const Icons = () => {
     "Notice Board",
     "Settings",
     "Language",
-    "Backup"
+    "Backup",
+    "Prescription",
+    "Bed Allotment",
+    "Blood Bank",
+    "Manage Report"
   ]
   const link_list = [
     "/" + title + "/doctor",
@@ -62,8 +70,39 @@ const Icons = () => {
     "/" + title + "/pharmacist",
     "/" + title + "/laboratorist",
     "/" + title + "/accountant",
+    "/" + title + "/nurse",
+    "/" + title + "/pharmacist",
+    "/" + title + "/laboratorist",
+    "/" + title + "/accountant",
   ]
-  const zipped = icon_list.map((item, index) => [item, name_list[index], link_list[index]])
+
+  let test_user = ""
+  const user_category = localStorage.getItem("user_category")
+  if(user_category === "admin"){// admin sidebar
+    test_user = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false]
+  }
+  else if(user_category === "doctor"){// doctor sidebar
+    test_user = [false, true, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true]
+  }
+  else if(user_category === "patient"){// patient sidebar
+  }
+  else if(user_category === "nurse"){// nurse sidebar
+  }
+  else if(user_category === "pharmacist"){// pharm sidebar
+  }
+  else if(user_category === "laboratorist"){// lab sidebar
+  }
+  else if(user_category === "accountant"){// accountant sidebar
+  }
+  else{
+    test_user = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+  }
+  const zipped = []
+  test_user.map(test => test).forEach((test, index) => {
+    if(test){
+      zipped.push([icon_list[index], name_list[index], link_list[index]])
+    }
+  })
 
   // handles icon button clicks to a url
   const handleClick = (event) => {

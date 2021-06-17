@@ -17,7 +17,7 @@ const Dashboard = () => {
       <div className="content-section">
         <Title name="dashboard" />
         <Icons />
-        <div className="content-body content-body-pad">
+        <div className="content-body-pad flex-wrap">
           <Calendar title="Calender Schedule" />
           <NoticeBoard title="Noticeboard" />
         </div>

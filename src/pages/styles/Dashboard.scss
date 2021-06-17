@@ -1,14 +1,18 @@
-.content-body{
-  display: flex;
-  margin-bottom: 50px;
-}
 .content-body-pad{
-  padding-left: 50px;
-  padding-right: 50px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 0 50px;
+  text-align: center;
 }
-.content-body > div{
+.content-body-pad > div{
   width: 100%;
+  display: inline-block;
+  min-width: 370px;
+  padding: 0 20px;
+  flex: 1;
 }
-.content-body > div + div{
-  margin-left: 20px;
+.calendar-section{
+  margin-bottom: 20px;
 }

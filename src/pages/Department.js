@@ -74,7 +74,7 @@ const Department = () => {
     setTotal(len)
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
-  }, [])
+  })
 
   // function for click on a title heading
   const showContent = head_index => {
@@ -168,7 +168,7 @@ const Department = () => {
                   <tbody>
                     {departments.slice(start, start + numberOfItems).map((department, index) => (
                       <tr key={index}>
-                        <td>{index + start + 1}</td>
+                        <td className="align-center">{index + start + 1}</td>
                         <td>{department["name"]}</td>
                         <td>{department["desc"]}</td>
                         <td>

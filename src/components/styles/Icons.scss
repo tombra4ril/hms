@@ -1,6 +1,5 @@
 .dashboard-icons-div{
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, 100px); */
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
   justify-content: center;
@@ -8,6 +7,8 @@
   overflow-x: hidden;
 }
 .dashboard-icons-div > div{
+  display: flex;
+  justify-content: center;
   padding: 20px;
   background-color: var(--light-blue);
   border-radius: 5px;
@@ -15,8 +16,8 @@
   cursor: pointer;
   position: relative;
   text-align: center;
-  min-width: 100px;
-  overflow-x: hidden;
+  height: 120px;
+  overflow: hidden;
 }
 .dashboard-icons-div > div:hover{
   box-shadow: 1px 1px 2px 2px var(--blue);
@@ -54,4 +55,10 @@
 [data-title]:hover:after {
   display: block;
   transform: translate(-50%, 110%) scale(1);
+}
+
+@media screen and (max-width: 1000px){
+  .dashboard-icons-div{
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

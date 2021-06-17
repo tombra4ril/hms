@@ -17,7 +17,7 @@ const Pagination = ({start, setStart, end, setEnd, total, page, setPage, numberO
   const handleLast = () => {
     if(page !== last){
       let _end = total - 1
-      let _start = _end - numberOfItems + 1
+      let _start = numberOfItems * (last - 1) 
       setStart(_start)
       setEnd(_end)
       setPage(Math.ceil(total / numberOfItems))
@@ -35,7 +35,7 @@ const Pagination = ({start, setStart, end, setEnd, total, page, setPage, numberO
       // set start and end
       setStart(_start)
       setEnd(_end)
-      setPage(Math.ceil(_end / numberOfItems))
+      setPage(Math.ceil((_end + 1)/ numberOfItems))
     }
   }
   

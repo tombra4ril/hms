@@ -5,9 +5,6 @@ import {useHistory, Link} from 'react-router-dom'
 import {AccountType} from "../modules/AccountType"
 
 const Login = () => {
-  // // get the user category context
-  // const [, setUserCategory] = useContext(CategoryContext)
-
   // Get the history
   const history = useHistory()
 
@@ -49,13 +46,6 @@ const Login = () => {
       SetErrorMessage("* Category or Email or password must be filled")
     }
     else{
-      // remove when getting from database
-      // setUserCategory(form_data["category"].toLowerCase())
-        localStorage.setItem("user_category", form_data["category"])
-        history.push("/dashboard")
-        return
-      //
-
       SetErrorMessage("")
       // const token_end_point = baseURL + process.env.REACT_APP_token_end_point
       const token_end_point = baseURL + process.env.REACT_APP_token_end_point
@@ -68,11 +58,12 @@ const Login = () => {
         // Set token and refresh in localstorage
         localStorage.setItem("access_token", response.data.access)
         localStorage.setItem("refresh_token", response.data.refresh)
-        console.log("Set access and refresh tokens")
+        localStorage.setItem("user_category", form_data["category"])
+        console.log("Access and Refresh tokens set in local storage successfully!")
         // set default authorization header
         axiosTokenInstance.defaults.headers["Authorization"] = "JWT " + localStorage.getItem("access_token")
       })
-      .then(response => {
+      .then(() => {
         // Call the login api
         const login_end_point = baseURL + process.env.REACT_APP_login_end_point
         axiosTokenInstance.post(login_end_point, {
@@ -80,13 +71,13 @@ const Login = () => {
           password: form_data.password,
           category: form_data.category
         })
-        .then(response => {
+        .then(() => {
           console.log("Logged in successfully")
           history.push("/dashboard")
         })
         .catch(error => {
           if(error.response.status === 401){
-            SetErrorMessage("* Make sure to always fill in the correct fields")
+            SetErrorMessage("* Wrong Category, Email, or Password!")
           }
         })
       })

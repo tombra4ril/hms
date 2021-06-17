@@ -57,7 +57,7 @@ const Accountant = () => {
     setTotal(len)
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
-  }, [])
+  }, [total])
   
   // function for click on a title heading
   const showContent = head_index => {
@@ -196,7 +196,7 @@ const Accountant = () => {
                   <tbody>
                     {accountants.slice(start, start + numberOfItems).map((nurse, index) => (
                       <tr key={index}>
-                        <td>{start + 1 + index}</td>
+                        <td className="align-center">{start + 1 + index}</td>
                         <td>{nurse["name"]}</td>
                         <td>{nurse["email"]}</td>
                         <td>{nurse["address"]}</td>

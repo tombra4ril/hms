@@ -4,6 +4,7 @@ import ListAdd from '../components/ListAdd'
 import Title from '../components/Title'
 import Pagination from "../components/Pagination"
 import "./styles/Manage.scss"
+import Modal from '../modules/Modal'
 
 const Patient = () => {
   const [content, setContent] = useState(0)
@@ -22,6 +23,9 @@ const Patient = () => {
   const [end, setEnd] = useState(start + numberOfItems - 1)
   const [page, setPage] = useState(1)
   const [last, setLast] = useState(Math.ceil(total / numberOfItems))
+  const [showModal, setShowModal] = useState("hide")
+  const [modalStatus, setModalStatus] = useState("success")
+  const [modalMessage, setModalMessage] = useState("")
 
   // call this when you want to change the section content
   useEffect(() => {
@@ -65,7 +69,7 @@ const Patient = () => {
     setLast(Math.ceil(len / numberOfItems))
     end <= len -1? setEnd(end): setEnd(len - 1)
   }, [])
-  
+
   // function for click on a title heading
   const showContent = head_index => {
     setContent(head_index)
@@ -135,6 +139,9 @@ const Patient = () => {
     setDob(dob)
   }
 
+  // timeout for modal variable
+  let hideModal = null
+
   // function to add a new patient
   const submitNew = (event) => {
     event.preventDefault()
@@ -146,6 +153,18 @@ const Patient = () => {
     console.log("Patient sex is: ", sex)
     console.log("Patient dob is: ", dob)
     console.log("Patient blood group is: ", bloodGroup)
+
+    // display modal
+    setModalMessage("Successfully added a new appointment!")
+    setShowModal("show")
+    setModalStatus("success")
+    hideModal = setTimeout(() => setShowModal("hide"), 5000)
+  }
+
+  // closes the modal
+  const closeModal = (event) => {
+    setShowModal("hide")
+    clearTimeout(hideModal)
   }
 
   // function to handle how many number of items to display
@@ -170,6 +189,7 @@ const Patient = () => {
 
   return (
     <div className="section">
+      <Modal show={showModal} message={modalMessage} status={modalStatus} closeModal={closeModal} />
       <Sidebar />
       <div className="content-section">
         <Title name="patient" />
@@ -210,7 +230,7 @@ const Patient = () => {
                   <tbody>
                     {patients.slice(start, start + numberOfItems).map((patient, index) => (
                       <tr key={index}>
-                        <td>{start + 1 + index}</td>
+                        <td className="align-center">{start + 1 + index}</td>
                         <td>{patient["name"]}</td>
                         <td>{patient["sex"]}</td>
                         <td>{patient["blood"]}</td>

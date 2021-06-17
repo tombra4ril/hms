@@ -89,15 +89,15 @@ const CalendarModal = () => {
   }
 
   return (
-    <div id="calendar-modal">
-      <div id="calendar-years">
-        <div className="calendar-years"><span onClick={decreaseMonth}>&lt;</span></div>
+    <div className="calendar-modal">
+      <div className="calendar-years-div flex-align-center">
+        <div className="calendar-years"><span onClick={decreaseMonth} className="material-icons">navigate_before</span></div>
         <div className="calendar-years"><span>{monthRep}, {year}</span></div>
-        <div className="calendar-years"><span onClick={increaseMonth}>&gt;</span></div>
+        <div className="calendar-years"><span onClick={increaseMonth} className="material-icons">navigate_next</span></div>
       </div>
       <table>
         <thead>
-          <tr id="calendar-week-days">
+          <tr className="calendar-week-days">
             {week_days.map(d => (
               <td key={d}>{d}</td>
             ))}

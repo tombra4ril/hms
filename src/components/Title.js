@@ -6,7 +6,11 @@ const Title = ({name}) => {
 
   useEffect(() => {
     let category = localStorage.getItem("user_category")
-    category === "admin" && name === "dashboard"? setUserType(category): setUserType("manage")
+    if(category === "admin"){
+      name === "dashboard"? setUserType(category): setUserType("manage")
+    }else{
+      name === "dashboard"? setUserType(category): setUserType("manage")
+    }
   }, [name])
 
   const names = [
